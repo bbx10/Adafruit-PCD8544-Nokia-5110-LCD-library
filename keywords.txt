@@ -1,0 +1,14 @@
+Adafruit_PCD8544	KEYWORD1
+begin	KEYWORD2
+command	KEYWORD2
+data	KEYWORD2
+setContrast	KEYWORD2
+clearDisplay	KEYWORD2
+display	KEYWORD2
+invertDisplay	KEYWORD2
+getPixelBuffer	KEYWORD2
+powerSaving	KEYWORD2
+scroll	KEYWORD2
+drawPixel	KEYWORD2
+getPixel	KEYWORD2
+clearDisplayRAM	KEYWORD2
