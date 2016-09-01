@@ -1,5 +1,5 @@
 {
-    "name": "Adafruit-PCD8544",
+    "name": "Adafruit PCD8544 Nokia 5110 LCD library",
     "keywords": "5110, lcd, pcd8544",
     "description": "Espressif ESP8266 port of the Adafruit PCD8544 library",
     "repository":
@@ -10,7 +10,7 @@
     },
     "dependencies":
     {
-      "name": "Adafruit-GFX",
+      "name": "Adafruit GFX Library",
       "frameworks": "arduino"
     },
     "frameworks": "arduino",
