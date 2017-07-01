@@ -5,6 +5,7 @@ This is a library with some added functionality over Adafruit's stock library, i
 ### Optimized hardware so far ###
 - ESP8266 (both hardware- and software-SPI)
 - STM32F1 (both hardware- and software-SPI)
+- ESP32 (both hardware- and software-SPI)
 
 ### New functionality and/or improvements ###
 - Implemented invertDisplay()

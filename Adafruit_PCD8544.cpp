@@ -17,7 +17,7 @@ All text above, and the splash screen below must be included in any redistributi
 *********************************************************************/
 
 //#include <Wire.h>
-#if defined(ESP8266)
+#if defined(ESP8266) || defined (ESP32)
 #include <pgmspace.h>
 #else
 #include <avr/pgmspace.h>
@@ -47,7 +47,7 @@ All text above, and the splash screen below must be included in any redistributi
 #ifdef SPI_HAS_TRANSACTION
 #if defined (ESP8266)
 SPISettings spiSettings = SPISettings(4000000, MSBFIRST, SPI_MODE0);
-#elif defined (__STM32F1__)
+#elif defined (__STM32F1__) || defined (ESP32)
 SPISettings spiSettings = SPISettings(4500000, MSBFIRST, SPI_MODE0);
 #else
 SPISettings spiSettings = SPISettings(PCD8544_SPI_CLOCK_DIV, MSBFIRST, SPI_MODE0);
@@ -309,6 +309,8 @@ void Adafruit_PCD8544::begin(uint8_t contrast, uint8_t bias) {
 #ifdef ESP8266
     // Datasheet says 4 MHz is max SPI clock speed
     _SPI->setFrequency(4000000);
+#elif defined (ESP32)
+    _SPI->setFrequency(4500000);
 #elif defined (__STM32F1__)
     _SPI->setClockDivider(SPI_CLOCK_DIV16);
 #else
@@ -484,8 +486,8 @@ void Adafruit_PCD8544::display(void) {
 #endif
   if(isHardwareSPI())
 //Add hardware-specific optimized methods for pushing those 504 bytes over SPI as needed
-//This one's for ESP8266
-#if defined(ESP8266)
+//This one's for ESP8266 and ESP32
+#if defined(ESP8266) || defined (ESP32)
     _SPI->writeBytes(pcd8544_buffer, 504);
 //Resort to the default if no optimized method available
 #elif defined (__STM32F1__)
@@ -542,6 +544,10 @@ void Adafruit_PCD8544::display(void) {
       }
       _SPI->writeBytes(&pcd8544_buffer[(LCDWIDTH*p)+col], maxcol - col + 1);
     } else
+    #elif defined(ESP32)
+    if(isHardwareSPI()){
+      _SPI->writeBytes((uint8_t *)&pcd8544_buffer[(LCDWIDTH*p)+col], maxcol - col + 1);
+    } else
     #elif defined(__STM32F1__)
     if(isHardwareSPI()){
       _SPI->setDataSize (0);
@@ -597,7 +603,7 @@ void Adafruit_PCD8544::clearDisplayRAM(uint8_t color) {
   digitalWrite(_dc, HIGH);
   if (_cs > 0) digitalWrite(_cs, LOW);
   #endif
-  #ifdef ESP8266
+  #ifdef ESP8266 || defined (ESP32)
   if(isHardwareSPI()) _SPI->writePattern(&color, 1, counter);
   else
   #elif defined (__STM32F1__)

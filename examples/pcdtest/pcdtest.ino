@@ -86,6 +86,12 @@ RX  (white) TX                      Serial data to ESP from IDE
 // pin 4 - LCD reset (RST)
 //Adafruit_PCD8544 display = Adafruit_PCD8544(12, 5, 4);
 
+// ESP32 hardware-SPI
+// pin 17 - Data/Command select (D/C)
+// pin 5 - LCD chip select (CS)
+// pin 16 - LCD reset (RST)
+//Adafruit_PCD8544 display = Adafruit_PCD8544(17, 5, 16);
+
 #define NUMFLAKES 10
 #define XPOS 0
 #define YPOS 1
